@@ -1,7 +1,6 @@
 var assign = require('lodash.assign');
 var ejs = require('ejs');
 var fs = require('fs');
-var path = require('path');
 
 function VersionFile(options) {
   var customOptions = options || {};
@@ -15,7 +14,7 @@ function VersionFile(options) {
 
   this.options = assign({}, defaults, customOptions);
 
-  var packageData = require(path.join(__dirname, this.options.package));
+  var packageData = JSON.parse(fs.readFileSync(this.options.package, 'utf8'));
 
   this.data = assign(
     {},
