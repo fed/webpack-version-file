@@ -1,0 +1,30 @@
+{
+  "name": "webpack-version-file",
+  "version": "0.0.0",
+  "description": "Generates a file with your package name, version and build date",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fknussel/webpack-version-file.git"
+  },
+  "author": {
+    "name": "Federico Knüssel",
+    "email": "fknussel@gmail.com"
+  },
+  "keywords": [
+    "webpack version file",
+    "exposed version"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fknussel/webpack-version-file/issues"
+  },
+  "homepage": "https://github.com/fknussel/webpack-version-file#readme",
+  "dependencies": {
+    "ejs": "^2.5.2",
+    "lodash.assign": "^4.2.0"
+  }
+}
