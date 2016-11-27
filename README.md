@@ -58,7 +58,7 @@ Available options are:
 | `templateString` | Defaults to `<%= name %>@<%= version %>\nBuild date: <%= buildDate %>` |
 | `data` | Object with additional data to be passed in to the template |
 
-## Custom data
+## Custom Data
 
 By default, you can resort to all of the fields in your `package.json` with no extra configuration, i.e.:
 
@@ -97,6 +97,10 @@ Environment: <%= environment %>
 ```
 
 Note that in this example, the only two variables coming from your `package.json` file are `name` and `version`. `date` and `environment` are defined in your `data` object.
+
+## Predefined Variables
+
+There's a single predefined variable you can make use of: `buildDate`. The plugin itself is in charge of putting this variable into scope, and its value is generated using `new Date()`.
 
 ## Custom Templates
 
