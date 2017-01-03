@@ -17,10 +17,4 @@ describe('Version File Webpack Plugin', () => {
 
     expect(plugin.apply).toExist();
   });
-
-  it('has a writeFile method', () => {
-    const plugin = new VersionFile();
-
-    expect(plugin.writeFile).toExist();
-  });
 });

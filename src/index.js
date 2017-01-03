@@ -40,33 +40,51 @@ export default class VersionFile {
 
     // If there's both an inline template and a template file defined, favour the template file
     if (this.options.template) {
-      fs.readFile(this.options.template, { encoding: 'utf8' }, (error, content) => {
+      // @TODO: move readFile to a helper method just like writeFile is
+      fs.readFile(this.options.template, { encoding: 'utf8' }, (error, template) => {
         if (error) {
           throw new Error(error);
         }
 
-        this.writeFile(content);
+        const content = render(template, this.data);
+
+        writeFile(this.options.output, content);
       });
     } else {
-      this.writeFile(this.options.templateString);
+      const content = render(this.options.templateString, this.data);
+
+      writeFile(this.options.output, content);
     }
   }
+}
 
-  writeFile(template) {
-    const renderedTemplate = ejs.render(template, this.data);
 
-    fs.writeFile(this.options.output, renderedTemplate, { flag: 'w' }, (error) => {
-      if (error) {
-        const errorMessage = chalk.bgRed.white(error);
+/**
+ * Returns a parsed string based on the template and data provided
+ *
+ * @param   {string} template Template string used by EJS
+ * @param   {object} data     Data object to hydrate the template with
+ * @returns {string}
+ */
+function render(template, data) {
+  return ejs.render(template, data);
+}
 
-        console.log(errorMessage);
 
-        return false;
-      }
+/**
+ * Writes a file to disk with the provided content
+ *
+ * @param {string} path    Path to the file we want to create
+ * @param {string} content File contents
+ */
+function writeFile(path, content) {
+  fs.writeFile(path, content, { flag: 'w' }, (error) => {
+    if (error) {
+      throw new Error(error);
+    }
 
-      const successMessage = chalk.bgGreen.white('Version file written to ' + this.options.output);
+    const successMessage = chalk.bgGreen.white('Version file written to ' + path);
 
-      console.log(successMessage);
-    });
-  }
+    console.log(successMessage);
+  });
 }
