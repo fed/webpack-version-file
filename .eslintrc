@@ -1,0 +1,56 @@
+// http://eslint.org/docs/rules/
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "classes": true
+    }
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "rules": {
+    "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
+    "camelcase": ["warn", { "properties": "never" }],
+    "comma-dangle": ["warn", "never"],
+    "comma-style": ["warn", "last"],
+    "consistent-this": ["warn", "self"],
+    "curly": ["warn", "all"],
+    "eqeqeq": ["warn", "smart"],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "key-spacing": "warn",
+    "keyword-spacing": "warn",
+    "lines-around-comment": ["warn", { "afterBlockComment": false, "afterLineComment": false }],
+    "max-depth": ["warn", 3],
+    "max-nested-callbacks": ["warn", 3],
+    "max-params": ["warn", 5],
+    "new-cap": "warn",
+    "newline-after-var": ["warn", "always"],
+    "no-bitwise": "warn",
+    "no-caller": "warn",
+    "no-dupe-keys": "warn",
+    "no-empty": "warn",
+    "no-mixed-spaces-and-tabs": "warn",
+    "no-multi-spaces": "warn",
+    "no-multiple-empty-lines": "warn",
+    "no-new": "warn",
+    "no-trailing-spaces": "warn",
+    "no-undef": "warn",
+    "no-unused-vars": "warn",
+    "no-use-before-define": ["warn", "nofunc"],
+    "one-var": ["warn", { "initialized": "never" }],
+    "operator-linebreak": ["warn", "after"],
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "always"],
+    "semi-spacing": ["warn", { "before": false, "after": true }],
+    "space-before-blocks": ["warn", "always"],
+    "space-infix-ops": "warn",
+    "strict": ["warn", "global"],
+    "valid-jsdoc": "warn",
+    "yoda": ["warn", "never"]
+  }
+}
