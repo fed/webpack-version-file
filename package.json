@@ -2,9 +2,10 @@
   "name": "webpack-version-file",
   "version": "0.1.1",
   "description": "Generates a file with your package name, version and build date",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:babel-core/register test/*.js",
+    "test:watch": "mocha --watch --compilers js:babel-core/register test/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,11 @@
   "dependencies": {
     "ejs": "^2.5.2",
     "lodash.assign": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-preset-es2015": "^6.18.0",
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0"
   }
 }

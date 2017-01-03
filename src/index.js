@@ -3,6 +3,7 @@ var ejs = require('ejs');
 var fs = require('fs');
 
 function VersionFile(options) {
+  // Override default options with custom ones
   var customOptions = options || {};
   var defaults = {
     package: './package.json',
@@ -14,8 +15,15 @@ function VersionFile(options) {
 
   this.options = assign({}, defaults, customOptions);
 
-  var packageData = JSON.parse(fs.readFileSync(this.options.package, 'utf8'));
+  // Try to read the content of the provided package.json file
+  try {
+    var packageFile = fs.readFileSync(this.options.package, 'utf8');
+    var packageData = JSON.parse(packageFile);
+  } catch (error) {
+    throw new Error('Wrong route to package.json file.');
+  }
 
+  // Data to be passed in to the templating engine
   this.data = assign(
     {},
     packageData,
@@ -28,7 +36,7 @@ VersionFile.prototype.apply = function () {
   if (this.options.template) {
     fs.readFile(this.options.template, { encoding: 'utf8' }, function (error, content) {
       if (error) {
-        throw error;
+        throw new Error(error);
       }
 
       this.writeFile(content);
@@ -48,6 +56,6 @@ VersionFile.prototype.writeFile = function (template) {
 
     console.log('✅ Version file written to ' + this.options.output);
   }.bind(this));
-}
+};
 
 module.exports = VersionFile;
