@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {VersionFile} from '../lib/index';
+import VersionFile from '../lib/index';
 import {version} from '../package';
 
 describe('Version File Webpack Plugin - Data', () => {

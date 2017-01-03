@@ -2,6 +2,7 @@ import assign from 'lodash.assign';
 import chalk from 'chalk';
 import ejs from 'ejs';
 import fs from 'fs';
+import path from 'path';
 
 const DEFAULT_OPTIONS = {
   package: './package.json',
@@ -11,7 +12,7 @@ const DEFAULT_OPTIONS = {
   data: {}
 };
 
-export class VersionFile {
+class VersionFile {
   constructor(options = {}) {
     // Override default options with custom ones
     this.options = assign({}, DEFAULT_OPTIONS, options);
@@ -98,14 +99,25 @@ function readFile(path) {
  * @param {string} path    Path to the file we want to create
  * @param {string} content File contents
  */
-function writeFile(path, content) {
-  fs.writeFile(path, content, { flag: 'w' }, (error) => {
+function writeFile(pathToFile, content) {
+  const directory = path.dirname(pathToFile);
+
+  // Create directory if it doesn't exist
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory);
+  }
+
+  // Try to write file to disk to the given location
+  fs.writeFile(pathToFile, content, { flag: 'w' }, (error) => {
     if (error) {
       throw new Error(error);
     }
 
-    const successMessage = chalk.bgGreen.white('Version file written to ' + path);
+    // Log success message to the console
+    const successMessage = chalk.bgGreen.white.bold('Version file written to ' + pathToFile) + '\n';
 
     console.log(successMessage);
   });
 }
+
+module.exports = VersionFile;

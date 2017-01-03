@@ -4,7 +4,7 @@
 
 This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time.
 
-Here's an example of the automatically generated `version.txt` file, which should get deployed next to your `bundle.js`:
+Here's an example of an automatically generated `version.txt` file, which you can deploy next to your `bundle.js`:
 
 ```
 your-project-name@1.0.0
