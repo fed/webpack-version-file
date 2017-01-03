@@ -1,4 +1,4 @@
-# webpack-version-file
+# webpack-version-file [![Build Status](https://travis-ci.org/fknussel/webpack-version-file.svg)](https://travis-ci.org/fknussel/webpack-version-file)
 
 This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time. `webpack-version-file` is based on [morficus/version-file](https://github.com/morficus/version-file).
 
