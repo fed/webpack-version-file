@@ -1,64 +1,72 @@
-var assign = require('lodash.assign');
-var ejs = require('ejs');
-var fs = require('fs');
-var chalk = require('chalk');
+import assign from 'lodash.assign';
+import chalk from 'chalk';
+import ejs from 'ejs';
+import fs from 'fs';
 
-function VersionFile(options) {
-  // Override default options with custom ones
-  var customOptions = options || {};
-  var defaults = {
-    package: './package.json',
-    output: './version.txt',
-    templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>',
-    template: '',
-    data: {}
-  };
-
-  this.options = assign({}, defaults, customOptions);
-
-  // Try to read the content of the provided package.json file
-  try {
-    var packageFile = fs.readFileSync(this.options.package, 'utf8');
-    var packageData = JSON.parse(packageFile);
-  } catch (error) {
-    throw new Error('Wrong route to package.json file.');
-  }
-
-  // Data to be passed in to the templating engine
-  this.data = assign(
-    {},
-    packageData,
-    { buildDate: new Date() },
-    this.options.data
-  );
-}
-
-VersionFile.prototype.apply = function () {
-  if (this.options.template) {
-    fs.readFile(this.options.template, { encoding: 'utf8' }, function (error, content) {
-      if (error) {
-        throw new Error(error);
-      }
-
-      this.writeFile(content);
-    }.bind(this));
-  } else {
-    this.writeFile(this.options.templateString);
-  }
+const DEFAULT_OPTIONS = {
+  package: './package.json',
+  output: './version.txt',
+  templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>',
+  template: '',
+  data: {}
 };
 
-VersionFile.prototype.writeFile = function (template) {
-  var renderedTemplate = ejs.render(template, this.data);
+export default class VersionFile {
+  constructor(options = {}) {
+    // Override default options with custom ones
+    this.options = assign({}, DEFAULT_OPTIONS, options);
 
-  fs.writeFile(this.options.output, renderedTemplate, { flag: 'w' }, function (error) {
-    if (error) {
-      return console.log(error);
+    // Try to read the content of the provided package.json file
+    try {
+      const rawPackageData = fs.readFileSync(this.options.package, 'utf8');
+      const parsedPackageData = JSON.parse(rawPackageData);
+
+      // Data to be passed in to the templating engine
+      this.data = assign(
+        {},
+        parsedPackageData,
+        { buildDate: new Date() },
+        this.options.data
+      );
+    } catch (error) {
+      throw new Error('Wrong route to package.json file.');
+    }
+  }
+
+  apply() {
+    if (!this.options.template || !this.options.templateString) {
+      throw new Error('Please provide a template or templateString through the options object.');
     }
 
-    var successMessage = chalk.bgGreen.white('Version file written to ' + this.options.output);
+    // If there's both an inline template and a template file defined, favour the inline template
+    if (this.options.template) {
+      fs.readFile(this.options.template, { encoding: 'utf8' }, (error, content) => {
+        if (error) {
+          throw new Error(error);
+        }
 
-    console.log(successMessage);
-  }.bind(this));
-};
+        this.writeFile(content);
+      });
+    } else {
+      this.writeFile(this.options.templateString);
+    }
+  }
 
-module.exports = VersionFile;
+  writeFile(template) {
+    const renderedTemplate = ejs.render(template, this.data);
+
+    fs.writeFile(this.options.output, renderedTemplate, { flag: 'w' }, (error) => {
+      if (error) {
+        const errorMessage = chalk.bgRed.white(error);
+
+        console.log(errorMessage);
+
+        return false;
+      }
+
+      const successMessage = chalk.bgGreen.white('Version file written to ' + this.options.output);
+
+      console.log(successMessage);
+    });
+  }
+}

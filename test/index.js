@@ -15,9 +15,6 @@ describe('Version File Webpack Plugin', () => {
   it('has an apply method attached', () => {
     const plugin = new VersionFile();
 
-    console.log(plugin.apply);
-
-    console.log(Function.prototype.apply);
     expect(plugin.apply).toExist();
   });
 
