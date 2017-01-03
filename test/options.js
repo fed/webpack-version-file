@@ -1,5 +1,5 @@
 import expect from 'expect';
-import VersionFile from '../src/index';
+import VersionFile from '../lib/index';
 
 describe('Version File Webpack Plugin - Options', () => {
   it('has an options property', () => {

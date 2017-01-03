@@ -1,5 +1,5 @@
 import expect from 'expect';
-import VersionFile from '../src/index';
+import VersionFile from '../lib/index';
 
 describe('Version File Webpack Plugin', () => {
   it('can be instantiated', () => {
@@ -12,13 +12,13 @@ describe('Version File Webpack Plugin', () => {
     expect(VersionFile).toBeA(Function);
   });
 
-  it('has an apply method attached', () => {
+  it('has an apply method', () => {
     const plugin = new VersionFile();
 
     expect(plugin.apply).toExist();
   });
 
-  it('has a writeFile method attached', () => {
+  it('has a writeFile method', () => {
     const plugin = new VersionFile();
 
     expect(plugin.writeFile).toExist();
