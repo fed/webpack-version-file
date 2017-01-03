@@ -1,6 +1,7 @@
 var assign = require('lodash.assign');
 var ejs = require('ejs');
 var fs = require('fs');
+var chalk = require('chalk');
 
 function VersionFile(options) {
   // Override default options with custom ones
@@ -54,7 +55,9 @@ VersionFile.prototype.writeFile = function (template) {
       return console.log(error);
     }
 
-    console.log('✅ Version file written to ' + this.options.output);
+    var successMessage = chalk.bgGreen.white('Version file written to ' + this.options.output);
+
+    console.log(successMessage);
   }.bind(this));
 };
 
