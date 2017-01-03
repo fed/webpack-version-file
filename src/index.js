@@ -16,45 +16,47 @@ export default class VersionFile {
     // Override default options with custom ones
     this.options = assign({}, DEFAULT_OPTIONS, options);
 
-    // Try to read the content of the provided package.json file
-    try {
-      const rawPackageData = fs.readFileSync(this.options.package, 'utf8');
-      const parsedPackageData = JSON.parse(rawPackageData);
-
-      // Data to be passed in to the templating engine
-      this.data = assign(
-        {},
-        parsedPackageData,
-        { buildDate: new Date() },
-        this.options.data
-      );
-    } catch (error) {
-      throw new Error('Wrong route to package.json file.');
+    // Validations
+    if (!this.options.template || !this.options.templateString) {
+      throw new Error('Please provide a valid template or templateString.');
     }
+
+    if (!this.options.output) {
+      throw new Error('Please provide a valid path for the output file.');
+    }
+
+    if (!this.options.package) {
+      throw new Error('Please provide a valid path to your package.json file.');
+    }
+
+    // Try to read the content of the provided package.json file
+    const rawPackage = readFile(this.options.package);
+    const parsedPackage = JSON.parse(rawPackage);
+
+    // Data to be passed in to the templating engine
+    this.data = assign(
+      {},
+      parsedPackage,
+      { buildDate: new Date() },
+      this.options.data
+    );
   }
 
   apply() {
-    if (!this.options.template || !this.options.templateString) {
-      throw new Error('Please provide a template or templateString through the options object.');
-    }
-
     // If there's both an inline template and a template file defined, favour the template file
+    let template;
+
     if (this.options.template) {
-      // @TODO: move readFile to a helper method just like writeFile is
-      fs.readFile(this.options.template, { encoding: 'utf8' }, (error, template) => {
-        if (error) {
-          throw new Error(error);
-        }
-
-        const content = render(template, this.data);
-
-        writeFile(this.options.output, content);
-      });
+      template = readFile(this.options.template);
     } else {
-      const content = render(this.options.templateString, this.data);
-
-      writeFile(this.options.output, content);
+      template = this.options.templateString;
     }
+
+    // Get the parsed template
+    const content = render(template, this.data);
+
+    // Write file to disk
+    writeFile(this.options.output, content);
   }
 }
 
@@ -64,10 +66,27 @@ export default class VersionFile {
  *
  * @param   {string} template Template string used by EJS
  * @param   {object} data     Data object to hydrate the template with
- * @returns {string}
+ * @returns {string}          Rendered template
  */
 function render(template, data) {
   return ejs.render(template, data);
+}
+
+
+/**
+ * Returns a file contents. This is a synchronous, blocking operation.
+ *
+ * @param   {string} path Path to the file we want to read
+ * @returns {string}      File contents
+ */
+function readFile(path) {
+  try {
+    const contents = fs.readFileSync(path, { encoding: 'utf8' });
+
+    return contents;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 
