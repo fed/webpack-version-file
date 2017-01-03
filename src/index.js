@@ -38,7 +38,7 @@ export default class VersionFile {
       throw new Error('Please provide a template or templateString through the options object.');
     }
 
-    // If there's both an inline template and a template file defined, favour the inline template
+    // If there's both an inline template and a template file defined, favour the template file
     if (this.options.template) {
       fs.readFile(this.options.template, { encoding: 'utf8' }, (error, content) => {
         if (error) {

@@ -8,7 +8,7 @@ describe('Version File Webpack Plugin - Options', () => {
     expect(plugin.options).toExist();
   });
 
-  it('has an options property with the correct number of settings', () => {
+  it('has the correct number of settings by default', () => {
     const plugin = new VersionFile();
 
     expect(Object.keys(plugin.options).length).toEqual(5);
@@ -29,26 +29,47 @@ describe('Version File Webpack Plugin - Options', () => {
 
   it('overrides default options as expected', () => {
     const options = {
+      package: './test/mock-package.json',
       output: './build/exposed-version.txt',
-      template: './src/version.ejs'
+      templateString: null,
+      template: './src/version-template.ejs',
+      data: null
     };
     const plugin = new VersionFile(options);
     const expectedOptions = {
-      package: './package.json',
+      package: './test/mock-package.json',
       output: './build/exposed-version.txt',
-      templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>',
-      template: './src/version.ejs',
-      data: {}
+      templateString: null,
+      template: './src/version-template.ejs',
+      data: null
     };
 
     expect(plugin.options).toEqual(expectedOptions);
   });
 
-  // it('fails if it cannot load the package.json file provided', () => {
+  it('fails if it cannot load the package.json file provided', () => {
+    const options = {
+      package: './incorrect-path-to-package.json'
+    };
+
+    expect(() => new VersionFile(options)).toThrow('Wrong route to package.json file.');
+  });
+
+  it('fails if no template or templateString is provided', () => {
+    const options = {
+      template: null,
+      templateString: null
+    };
+
+    expect(() => new VersionFile(options).apply())
+      .toThrow('Please provide a template or templateString through the options object.');
+  });
+
+  // it('fails if it cannot load the template file provided', () => {
   //   const options = {
-  //     package: './incorrect-path-to-package.json'
+  //     template: './incorrect-path-to-template.ejs'
   //   };
 
-  //   expect(new VersionFile(options)).toThrow(new Error);
+  //   expect(() => new VersionFile(options)).toThrow('Wrong route to package.json file.');
   // });
 });
