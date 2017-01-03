@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/fknussel/webpack-version-file.svg)](https://travis-ci.org/fknussel/webpack-version-file) ![Dependencies Status](https://david-dm.org/fknussel/webpack-version-file.svg) ![devDependencies Status](https://david-dm.org/fknussel/webpack-version-file/dev-status.svg)
 
-This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time. `webpack-version-file` is based on [morficus/version-file](https://github.com/morficus/version-file).
+This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time.
 
 Here's an example of the automatically generated `version.txt` file, which should get deployed next to your `bundle.js`:
 
@@ -133,3 +133,11 @@ If you don't define a template altogether, it will default to:
 <%= name %>@<%= version %>
 Build date: <%= buildDate %>
 ```
+
+## Credits
+
+This plugin was inspired by [morficus/version-file](https://github.com/morficus/version-file).
+
+## License
+
+MIT
