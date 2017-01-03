@@ -11,22 +11,24 @@ const DEFAULT_OPTIONS = {
   data: {}
 };
 
-export default class VersionFile {
+export class VersionFile {
   constructor(options = {}) {
     // Override default options with custom ones
     this.options = assign({}, DEFAULT_OPTIONS, options);
 
-    // Validations
-    if (!this.options.template || !this.options.templateString) {
+    // Make sure there's either a valid template or templateString
+    if (!this.options.template && !this.options.templateString) {
       throw new Error('Please provide a valid template or templateString.');
     }
 
+    // Make sure the user passed in the route to the file to write
     if (!this.options.output) {
       throw new Error('Please provide a valid path for the output file.');
     }
 
+    // Make sure the user passed in the route to the package.json file
     if (!this.options.package) {
-      throw new Error('Please provide a valid path to your package.json file.');
+      throw new Error('Please provide the path to your package.json file.');
     }
 
     // Try to read the content of the provided package.json file

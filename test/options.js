@@ -1,5 +1,5 @@
 import expect from 'expect';
-import VersionFile from '../lib/index';
+import {VersionFile} from '../lib/index';
 
 describe('Version File Webpack Plugin - Options', () => {
   it('has an options property', () => {
@@ -47,13 +47,14 @@ describe('Version File Webpack Plugin - Options', () => {
     expect(plugin.options).toEqual(expectedOptions);
   });
 
-  it('fails if it cannot load the package.json file provided', () => {
-    const options = {
-      package: './incorrect-path-to-package.json'
-    };
+  // it('fails if it cannot load the package.json file provided', () => {
+  //   const options = {
+  //     package: './incorrect-path-to-package.json'
+  //   };
 
-    expect(() => new VersionFile(options)).toThrow('Wrong route to package.json file.');
-  });
+  //   expect(() => new VersionFile(options))
+  //     .toThrow('Wrong route to package.json file.');
+  // });
 
   it('fails if no template or templateString is provided', () => {
     const options = {
@@ -61,15 +62,25 @@ describe('Version File Webpack Plugin - Options', () => {
       templateString: null
     };
 
-    expect(() => new VersionFile(options).apply())
-      .toThrow('Please provide a template or templateString through the options object.');
+    expect(() => new VersionFile(options))
+      .toThrow('Please provide a valid template or templateString.');
   });
 
-  // it('fails if it cannot load the template file provided', () => {
-  //   const options = {
-  //     template: './incorrect-path-to-template.ejs'
-  //   };
+  it('fails if no path to the output file is provided', () => {
+    const options = {
+      output: null
+    };
 
-  //   expect(() => new VersionFile(options)).toThrow('Wrong route to package.json file.');
-  // });
+    expect(() => new VersionFile(options))
+      .toThrow('Please provide a valid path for the output file.');
+  });
+
+  it('fails if no package.json is provided', () => {
+    const options = {
+      package: null
+    };
+
+    expect(() => new VersionFile(options))
+      .toThrow('Please provide the path to your package.json file.');
+  });
 });

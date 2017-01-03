@@ -22,7 +22,7 @@ npm install --save-dev webpack-version-file
 Just include the module at the top of your `webpack.config.js` file and add a new entry to your `plugins` array:
 
 ```js
-const VersionFile = require('webpack-version-file').default;
+const VersionFile = require('webpack-version-file');
 
 module.exports = {
   entry: './src',
@@ -32,8 +32,6 @@ module.exports = {
   ]
 };
 ```
-
-:warning: Note the use of `.default` when importing the plugin :warning
 
 You can also pass in additional options:
 
