@@ -59,6 +59,7 @@ Available options are:
 | `template` | Path to the template file, e.g.: `./version.ejs`. Has no default value. |
 | `templateString` | Defaults to `<%= name %>@<%= version %>\nBuild date: <%= buildDate %>` |
 | `data` | Object with additional data to be passed in to the template |
+| `verbose` | Log a success message to the terminal once the version file has been generated. `false` by default. |
 
 ## Custom Data
 

@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 const DEFAULT_OPTIONS = {
+  verbose: false,
   package: './package.json',
   output: './version.txt',
   templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>',
@@ -59,7 +60,7 @@ class VersionFile {
     const content = render(template, this.data);
 
     // Write file to disk
-    writeFile(this.options.output, content);
+    writeFile(this.options.output, content, this.options.verbose);
   }
 }
 
@@ -99,7 +100,7 @@ function readFile(path) {
  * @param {string} path    Path to the file we want to create
  * @param {string} content File contents
  */
-function writeFile(pathToFile, content) {
+function writeFile(pathToFile, content, verbose) {
   const directory = path.dirname(pathToFile);
 
   // Create directory if it doesn't exist
@@ -113,10 +114,12 @@ function writeFile(pathToFile, content) {
       throw new Error(error);
     }
 
-    // Log success message to the console
-    const successMessage = chalk.bgGreen.white.bold('Version file written to ' + pathToFile) + '\n';
+    // Log success message to the console if in verbose mode only
+    if (verbose) {
+      const successMessage = `\nVersion file written to ${chalk.green(pathToFile)}`;
 
-    console.log(successMessage);
+      console.log(successMessage);
+    }
   });
 }
 
