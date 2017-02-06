@@ -11,12 +11,13 @@ describe('Version File Webpack Plugin - Options', () => {
   it('has the correct number of settings by default', () => {
     const plugin = new VersionFile();
 
-    expect(Object.keys(plugin.options).length).toEqual(5);
+    expect(Object.keys(plugin.options).length).toEqual(6);
   });
 
   it('defaults to the correct set of options', () => {
     const plugin = new VersionFile();
     const defaultOptions = {
+      verbose: false,
       package: './package.json',
       output: './version.txt',
       templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>',
@@ -29,6 +30,7 @@ describe('Version File Webpack Plugin - Options', () => {
 
   it('overrides default options as expected', () => {
     const options = {
+      verbose: true,
       package: './test/mock-package.json',
       output: './build/exposed-version.txt',
       templateString: null,
@@ -37,6 +39,7 @@ describe('Version File Webpack Plugin - Options', () => {
     };
     const plugin = new VersionFile(options);
     const expectedOptions = {
+      verbose: true,
       package: './test/mock-package.json',
       output: './build/exposed-version.txt',
       templateString: null,
@@ -47,14 +50,13 @@ describe('Version File Webpack Plugin - Options', () => {
     expect(plugin.options).toEqual(expectedOptions);
   });
 
-  // it('fails if it cannot load the package.json file provided', () => {
-  //   const options = {
-  //     package: './incorrect-path-to-package.json'
-  //   };
+  it('fails if it cannot load the package.json file provided', () => {
+    const options = {
+      package: './incorrect-path-to-package.json'
+    };
 
-  //   expect(() => new VersionFile(options))
-  //     .toThrow('Wrong route to package.json file.');
-  // });
+    expect(() => new VersionFile(options)).toThrow();
+  });
 
   it('fails if no template or templateString is provided', () => {
     const options = {
