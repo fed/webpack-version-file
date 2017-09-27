@@ -1,6 +1,11 @@
 # webpack-version-file
 
-[![Build Status](https://travis-ci.org/fknussel/webpack-version-file.svg)](https://travis-ci.org/fknussel/webpack-version-file) ![Dependencies Status](https://david-dm.org/fknussel/webpack-version-file.svg) ![devDependencies Status](https://david-dm.org/fknussel/webpack-version-file/dev-status.svg)
+[![Build Status](https://travis-ci.org/fknussel/webpack-version-file.svg)](https://travis-ci.org/fknussel/webpack-version-file)
+![Dependencies Status](https://david-dm.org/fknussel/webpack-version-file.svg)
+![devDependencies Status](https://david-dm.org/fknussel/webpack-version-file/dev-status.svg)
+[![Downloads](https://img.shields.io/npm/dm/webpack-version-file.svg)](https://www.npmjs.com/package/webpack-version-file)
+[![Version](https://img.shields.io/npm/v/webpack-version-file.svg)](https://www.npmjs.com/package/webpack-version-file)
+[![MIT License](https://img.shields.io/github/license/fknussel/webpack-version-file.svg)](https://opensource.org/licenses/MIT)
 
 This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time.
 
