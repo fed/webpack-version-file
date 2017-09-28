@@ -1,4 +1,4 @@
-import expect from 'expect';
+import {expect} from 'chai';
 import VersionFile from '../lib/index';
 import {version} from '../package';
 
@@ -6,21 +6,21 @@ describe('Version File Webpack Plugin - Data', () => {
   it('has a data property', () => {
     const plugin = new VersionFile();
 
-    expect(plugin.data).toExist();
+    expect(plugin.data).to.exist;
   });
 
   it('holds the package name', () => {
     const plugin = new VersionFile();
 
-    expect(plugin.data.name).toExist();
-    expect(plugin.data.name).toEqual('webpack-version-file');
+    expect(plugin.data.name).to.exist;
+    expect(plugin.data.name).to.equal('webpack-version-file');
   });
 
   it('holds the package version number', () => {
     const plugin = new VersionFile();
 
-    expect(plugin.data.version).toExist();
-    expect(plugin.data.version).toEqual(version);
+    expect(plugin.data.version).to.exist;
+    expect(plugin.data.version).to.equal(version);
   });
 
   it('stores the correct package name', () => {
@@ -28,7 +28,7 @@ describe('Version File Webpack Plugin - Data', () => {
       package: './test/mock-package.json'
     });
 
-    expect(plugin.data.name).toEqual('this-is-a-mock-package-json');
+    expect(plugin.data.name).to.equal('this-is-a-mock-package-json');
   });
 
   it('stores the correct package name', () => {
@@ -36,13 +36,13 @@ describe('Version File Webpack Plugin - Data', () => {
       package: './test/mock-package.json'
     });
 
-    expect(plugin.data.version).toEqual('1.2.3');
+    expect(plugin.data.version).to.equal('1.2.3');
   });
 
   it('holds the current date', () => {
     const plugin = new VersionFile();
 
-    expect(plugin.data.buildDate).toBeA(Date);
+    expect(plugin.data.buildDate).to.be.an.instanceof(Date);
   });
 
   it('holds any custom data thas has been passed in through options', () => {
@@ -54,9 +54,9 @@ describe('Version File Webpack Plugin - Data', () => {
       }
     });
 
-    expect(plugin.data.username).toEqual('johndoe');
-    expect(plugin.data.email).toEqual('john@doe.com');
-    expect(plugin.data.randomNumber).toEqual(17);
+    expect(plugin.data.username).to.equal('johndoe');
+    expect(plugin.data.email).to.equal('john@doe.com');
+    expect(plugin.data.randomNumber).to.equal(17);
   });
 
   it('allows overwriting the name, version or buildDate fields', () => {
@@ -69,8 +69,8 @@ describe('Version File Webpack Plugin - Data', () => {
       }
     });
 
-    expect(plugin.data.name).toEqual('new-package-name');
-    expect(plugin.data.version).toEqual('4.5.6');
-    expect(plugin.data.buildDate).toEqual('Today');
+    expect(plugin.data.name).to.equal('new-package-name');
+    expect(plugin.data.version).to.equal('4.5.6');
+    expect(plugin.data.buildDate).to.equal('Today');
   });
 });

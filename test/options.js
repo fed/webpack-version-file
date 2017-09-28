@@ -1,17 +1,17 @@
-import expect from 'expect';
+import {expect} from 'chai';
 import VersionFile from '../lib/index';
 
 describe('Version File Webpack Plugin - Options', () => {
   it('has an options property', () => {
     const plugin = new VersionFile();
 
-    expect(plugin.options).toExist();
+    expect(plugin.options).to.exist;
   });
 
   it('has the correct number of settings by default', () => {
     const plugin = new VersionFile();
 
-    expect(Object.keys(plugin.options).length).toEqual(6);
+    expect(Object.keys(plugin.options).length).to.equal(6);
   });
 
   it('defaults to the correct set of options', () => {
@@ -25,7 +25,7 @@ describe('Version File Webpack Plugin - Options', () => {
       data: {}
     };
 
-    expect(plugin.options).toEqual(defaultOptions);
+    expect(plugin.options).to.deep.equal(defaultOptions);
   });
 
   it('overrides default options as expected', () => {
@@ -47,7 +47,7 @@ describe('Version File Webpack Plugin - Options', () => {
       data: null
     };
 
-    expect(plugin.options).toEqual(expectedOptions);
+    expect(plugin.options).to.deep.equal(expectedOptions);
   });
 
   it('fails if it cannot load the package.json file provided', () => {
@@ -55,7 +55,7 @@ describe('Version File Webpack Plugin - Options', () => {
       package: './incorrect-path-to-package.json'
     };
 
-    expect(() => new VersionFile(options)).toThrow();
+    expect(() => new VersionFile(options)).to.throw();
   });
 
   it('fails if no template or templateString is provided', () => {
@@ -65,7 +65,7 @@ describe('Version File Webpack Plugin - Options', () => {
     };
 
     expect(() => new VersionFile(options))
-      .toThrow('Please provide a valid template or templateString.');
+      .to.throw('Please provide a valid template or templateString.');
   });
 
   it('fails if no path to the output file is provided', () => {
@@ -74,7 +74,7 @@ describe('Version File Webpack Plugin - Options', () => {
     };
 
     expect(() => new VersionFile(options))
-      .toThrow('Please provide a valid path for the output file.');
+      .to.throw('Please provide a valid path for the output file.');
   });
 
   it('fails if no package.json is provided', () => {
@@ -83,6 +83,6 @@ describe('Version File Webpack Plugin - Options', () => {
     };
 
     expect(() => new VersionFile(options))
-      .toThrow('Please provide the path to your package.json file.');
+      .to.throw('Please provide the path to your package.json file.');
   });
 });

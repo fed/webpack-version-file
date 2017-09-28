@@ -9,7 +9,7 @@
 
 This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time.
 
-Here's an example of an automatically generated `version.txt` file, which you can deploy next to your `bundle.js`:
+Here's an example of an automatically generated `version.txt` file, which you can deploy next to your bundle file:
 
 ```
 your-project-name@1.0.0
@@ -19,7 +19,11 @@ Build date: Mon Nov 28 2016 08:12:34 GMT+1100 (AEDT)
 ## Installation
 
 ```
+# npm
 npm install --save-dev webpack-version-file
+
+# yarn
+yarn add --dev webpack-version-file
 ```
 
 ## Setting up the plugin in your Webpack Config file
@@ -68,7 +72,7 @@ Available options are:
 
 ## Custom Data
 
-By default, you can resort to all of the fields in your `package.json` with no extra configuration, i.e.:
+By default, within your template you have access to all of the fields in your `package.json` with no extra configuration, i.e.:
 
 * `version`
 * `name`
@@ -76,6 +80,12 @@ By default, you can resort to all of the fields in your `package.json` with no e
 * `author`
 * `repository.url`
 * etc.
+
+```
+<%= name %>@<%= version %>
+License: <%= license %>
+Author: <%= author.name %> (<%= author.email %>)
+```
 
 However you can also pass in custom data when you add `webpack-version-file` to your list of plugins:
 
@@ -108,7 +118,12 @@ Note that in this example, the only two variables coming from your `package.json
 
 ## Predefined Variables
 
-There's a single predefined variable you can make use of: `buildDate`. The plugin itself is in charge of putting this variable into scope, and its value is generated using `new Date()`.
+There's a single predefined variable you can make use of: `buildDate` (which is also part of the default template). The plugin itself is in charge of putting this variable into scope, and its value is generated using `new Date()`.
+
+```
+<%= name %>@<%= version %>
+Build date: <%= buildDate %>
+```
 
 ## Custom Templates
 
@@ -138,6 +153,27 @@ If you don't define a template altogether, it will default to:
 ```
 <%= name %>@<%= version %>
 Build date: <%= buildDate %>
+```
+
+## Running the Example
+
+Clone this repo, move to the `example` folder and download the dependencies:
+
+```
+cd example
+npm install
+```
+
+To check how the plugin behaves with Webpack Dev Server, run:
+
+```
+npm start
+```
+
+To trigger the plugin when building the bundle with Webpack, run:
+
+```
+npm run build
 ```
 
 ## Credits
