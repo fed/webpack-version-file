@@ -1,5 +1,5 @@
 const path = require('path');
-const VersionFile = require('webpack-version-file');
+const VersionFile = require('../lib');
 
 module.exports = {
   entry: './src/index.js',
