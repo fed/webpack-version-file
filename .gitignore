@@ -1,2 +1,6 @@
 node_modules/
 npm-debug.log
+
+# webpack-version-file-example
+example/node_modules/
+example/build/
