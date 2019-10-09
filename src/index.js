@@ -55,6 +55,25 @@ class VersionFile {
       template = this.options.templateString;
     }
 
+    // Get all the variables being used in the template,
+    // and make sure the corresponding values have been provided in `this.data`
+    const dataKeys = Object.keys(this.data);
+    const templateVariablesRegex = /<%= (.+?) %>/g;
+    const variablesNotPopulated = template
+      .match(templateVariablesRegex)
+      .map(variable => variable.replace('<%=', ''))
+      .map(variable => variable.replace('%>', ''))
+      .map(variable => variable.trim())
+      .filter(variable => dataKeys.indexOf(variable) === -1);
+
+    if (variablesNotPopulated.length > 0) {
+      const variableCollocation = variablesNotPopulated.length > 1 ? 'variables' : 'variable';
+      const haveNotCollocation = variablesNotPopulated.length > 1 ? `haven't` : `hasn't`;
+      const listOfVariables = variablesNotPopulated.join(', ');
+
+      throw new Error(`You are using the following ${variableCollocation} which ${haveNotCollocation} been populated: ${listOfVariables}`);
+    }
+
     // Get the parsed template
     const content = render(template, this.data);
 
