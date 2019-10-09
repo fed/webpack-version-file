@@ -1,6 +1,6 @@
 {
   "name": "webpack-version-file",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Generates a file with your package name, version and build date",
   "main": "lib/index.js",
   "scripts": {
