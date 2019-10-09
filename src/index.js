@@ -1,4 +1,3 @@
-import assign from 'lodash.assign';
 import chalk from 'chalk';
 import ejs from 'ejs';
 import fs from 'fs';
@@ -16,7 +15,7 @@ const DEFAULT_OPTIONS = {
 class VersionFile {
   constructor(options = {}) {
     // Override default options with custom ones
-    this.options = assign({}, DEFAULT_OPTIONS, options);
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
 
     // Make sure there's either a valid template or templateString
     if (!this.options.template && !this.options.templateString) {
@@ -38,7 +37,7 @@ class VersionFile {
     const parsedPackage = JSON.parse(rawPackage);
 
     // Data to be passed in to the templating engine
-    this.data = assign(
+    this.data = Object.assign(
       {},
       parsedPackage,
       { buildDate: new Date() },
