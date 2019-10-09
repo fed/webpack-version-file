@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib",
-    "test": "mocha --compilers js:babel-core/register test/*.js",
-    "test:watch": "mocha --watch --compilers js:babel-core/register test/*.js"
+    "test": "mocha --require babel-core/register test/*.js",
+    "test:watch": "mocha --watch --require babel-core/register test/*.js"
   },
   "repository": {
     "type": "git",

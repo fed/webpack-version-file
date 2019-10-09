@@ -20,7 +20,7 @@ describe('Version File Webpack Plugin - Options', () => {
       verbose: false,
       package: './package.json',
       output: './version.txt',
-      templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>',
+      templateString: '<%= name %>@<%= version %>\nBuild date: <%= buildDate %>\n',
       template: '',
       data: {}
     };
