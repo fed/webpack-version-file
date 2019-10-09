@@ -1,30 +1,16 @@
 const path = require('path');
-const VersionFile = require('../lib');
+const VersionFile = require('webpack-version-file');
+// const VersionFile = require('../lib'); // Use this one instead for local testing
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
-  },
-  devServer: {
-    inline: true,
-    publicPath: '/build/',
-    historyApiFallback: true
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   plugins: [
     new VersionFile({
-      output: './build/version.txt',
-      package: './package.json'
+      output: './dist/version.txt'
     })
   ]
 };
