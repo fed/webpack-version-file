@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/webpack-version-file.svg)](https://www.npmjs.com/package/webpack-version-file)
 [![License](https://img.shields.io/github/license/fknussel/webpack-version-file.svg)](https://opensource.org/licenses/MIT)
 
-This is a simple [Webpack](https://webpack.github.io/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time.
+This is a simple [Webpack](https://webpack.js.org/) plugin which generates a file with your package name, version number, build date and any other details you might need. This is particularly useful as a way to know which version of your project is deployed at any given time.
 
 Here's an example of an automatically generated `version.txt` file, which you can deploy next to your bundle file:
 
@@ -24,7 +24,7 @@ npm install --save-dev webpack-version-file
 yarn add --dev webpack-version-file
 ```
 
-## Setting up the plugin in your Webpack Config file
+## Setting up the plugin in your Webpack config file
 
 Just include the module at the top of your `webpack.config.js` file and add a new entry to your `plugins` array:
 
@@ -70,7 +70,7 @@ Available options are:
 
 ## Custom Data
 
-By default, within your template you have access to all of the fields in your `package.json` with no extra configuration, i.e.:
+By default, within your template you have access to all of the fields in your `package.json` with no extra configuration, e.g.:
 
 * `version`
 * `name`
