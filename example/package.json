@@ -2,6 +2,14 @@
   "private": true,
   "name": "webpack-version-file-example",
   "version": "0.1.0",
+  "author": {
+    "name": "Federico Knüssel",
+    "email": "fknussel@gmail.com"
+  },
+  "keywords": [
+    "webpack version file example",
+    "exposed version"
+  ],
   "scripts": {
     "build": "webpack -p --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"

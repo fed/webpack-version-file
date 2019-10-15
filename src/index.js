@@ -64,6 +64,7 @@ class VersionFile {
       .map(variable => variable.replace('<%=', ''))
       .map(variable => variable.replace('%>', ''))
       .map(variable => variable.trim())
+      .map(getRootVariableForNestedObjects)
       .filter(variable => dataKeys.indexOf(variable) === -1);
 
     if (variablesNotPopulated.length > 0) {
@@ -82,7 +83,6 @@ class VersionFile {
   }
 }
 
-
 /**
  * Returns a parsed string based on the template and data provided
  *
@@ -93,7 +93,6 @@ class VersionFile {
 function render(template, data) {
   return ejs.render(template, data);
 }
-
 
 /**
  * Returns a file contents. This is a synchronous, blocking operation.
@@ -110,7 +109,6 @@ function readFile(path) {
     throw new Error(error);
   }
 }
-
 
 /**
  * Writes a file to disk with the provided content
@@ -140,5 +138,31 @@ function writeFile(pathToFile, content, verbose) {
     }
   });
 }
+
+/**
+ * Given a string which represents a variable or path to a nested object property/array element,
+ * this function returns the name of the original variable ignoring the nesting.
+ *
+ * @param {string} variable   Variable string, can be a nested object or array
+ * @param {string}            Name of the variable w/o nesting
+ */
+function getRootVariableForNestedObjects(variable) {
+  const indexOfFirstDot = variable.indexOf('.');
+  const indexOfFirstBracket = variable.indexOf('[');
+  let indexOfFirstOccurrence = null;
+
+  if (indexOfFirstDot >= 0 && indexOfFirstBracket >= 0) {
+    indexOfFirstOccurrence = Math.min(indexOfFirstDot, indexOfFirstBracket);
+  } else if (indexOfFirstDot >= 0 && indexOfFirstBracket < 0) {
+    indexOfFirstOccurrence = indexOfFirstDot;
+  } else if (indexOfFirstBracket >= 0 && indexOfFirstDot < 0) {
+    indexOfFirstOccurrence = indexOfFirstBracket;
+  }
+
+  return indexOfFirstOccurrence !== null ? variable.slice(0, indexOfFirstOccurrence) : variable;
+}
+
+// We export this function so that we can test it.
+VersionFile.getRootVariableForNestedObjects = getRootVariableForNestedObjects;
 
 module.exports = VersionFile;

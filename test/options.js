@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import VersionFile from '../lib/index';
+import { expect } from 'chai';
+import VersionFile from '../lib';
 
 describe('Version File Webpack Plugin - Options', () => {
   it('has an options property', () => {

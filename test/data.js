@@ -1,6 +1,6 @@
-import {expect} from 'chai';
-import VersionFile from '../lib/index';
-import {version} from '../package';
+import { expect } from 'chai';
+import VersionFile from '../lib';
+import { version } from '../package';
 
 describe('Version File Webpack Plugin - Data', () => {
   it('has a data property', () => {

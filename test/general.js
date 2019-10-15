@@ -1,7 +1,7 @@
-import {expect} from 'chai';
-import VersionFile from '../lib/index';
+import { expect } from 'chai';
+import VersionFile from '../lib';
 
-describe('Version File Webpack Plugin', () => {
+describe('Version File Webpack Plugin - General', () => {
   it('can be instantiated', () => {
     const plugin = new VersionFile();
 
