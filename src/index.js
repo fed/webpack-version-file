@@ -59,13 +59,16 @@ class VersionFile {
     // and make sure the corresponding values have been provided in `this.data`
     const dataKeys = Object.keys(this.data);
     const templateVariablesRegex = /<%= (.+?) %>/g;
-    const variablesNotPopulated = template
-      .match(templateVariablesRegex)
-      .map(variable => variable.replace('<%=', ''))
-      .map(variable => variable.replace('%>', ''))
-      .map(variable => variable.trim())
-      .map(getRootVariableForNestedObjects)
-      .filter(variable => dataKeys.indexOf(variable) === -1);
+    const regexMatches = template.match(templateVariablesRegex);
+    let variablesNotPopulated = [];
+    if (regexMatches) {
+      variablesNotPopulated = regexMatches
+        .map(variable => variable.replace('<%=', ''))
+        .map(variable => variable.replace('%>', ''))
+        .map(variable => variable.trim())
+        .map(getRootVariableForNestedObjects)
+        .filter(variable => dataKeys.indexOf(variable) === -1);
+    }
 
     if (variablesNotPopulated.length > 0) {
       const variableCollocation = variablesNotPopulated.length > 1 ? 'variables' : 'variable';
