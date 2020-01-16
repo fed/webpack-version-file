@@ -73,4 +73,13 @@ describe('Version File Webpack Plugin - Data', () => {
     expect(plugin.data.version).to.equal('4.5.6');
     expect(plugin.data.buildDate).to.equal('Today');
   });
+
+  it('it allows using template strings without variables', () => {
+    const stringVersion = '1.33.7';
+    const plugin = new VersionFile({
+      templateString: stringVersion,
+    });
+
+    expect(() => plugin.apply()).not.to.throw();
+  })
 });
