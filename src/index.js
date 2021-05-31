@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import ejs from 'ejs';
-import fs from 'fs';
+import fs from 'fs-extra';
 import path from 'path';
 
 const DEFAULT_OPTIONS = {
@@ -124,7 +124,7 @@ function writeFile(pathToFile, content, verbose) {
 
   // Create directory if it doesn't exist
   if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory);
+    fs.mkdirsSync(directory);
   }
 
   // Try to write file to disk to the given location
