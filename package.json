@@ -28,7 +28,7 @@
   "homepage": "https://github.com/fknussel/webpack-version-file#readme",
   "dependencies": {
     "chalk": "^2.1.0",
-    "ejs": "^2.5.2"
+    "ejs": "^3.1.8"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
