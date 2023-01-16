@@ -130,7 +130,7 @@ There are two ways in which you can define your own template:
 * using a template string
 * creating a template file
 
-In either case, the template must be written using [EJS](http://www.embeddedjs.com/) which is a JavaScript templating language. Here's a sample template:
+In either case, the template must be written using [EJS](https://ejs.co/) which is a JavaScript templating language. Here's a sample template:
 
 ```
 <%= name %>@<%= version %>
